@@ -33,30 +33,49 @@ function backToStart(){
 function loadProblem(){
   answer=[];
   let p=problems[current];
+
   document.getElementById("meaning").textContent=p.meaning;
-  document.getElementById("answerArea").textContent="";
-  let area=document.getElementById("blockArea");
-  area.innerHTML="";
+
+  const answerArea=document.getElementById("answerArea");
+  answerArea.innerHTML="";
+
+  const blockArea=document.getElementById("blockArea");
+  blockArea.innerHTML="";
+
+  function renderAnswer(){
+    answerArea.innerHTML="";
+    answer.forEach((word,i)=>{
+      let btn=document.createElement("button");
+      btn.textContent=word;
+      btn.onclick=()=>{
+        answer.splice(i,1);
+        renderAnswer();
+      };
+      answerArea.appendChild(btn);
+    });
+  }
+
   p.blocks.sort(()=>Math.random()-0.5).forEach(word=>{
     let b=document.createElement("button");
     b.textContent=word;
     b.onclick=()=>{
       answer.push(word);
-      document.getElementById("answerArea").textContent=answer.join(" ");
+      renderAnswer();
     };
-    area.appendChild(b);
+    blockArea.appendChild(b);
   });
 }
+
 
 /* 判定 */
 function checkAnswer(){
   if(answer.join(" ")===problems[current].answer){
     alert("正解！");
     current=(current+1)%problems.length;
-    loadProblem();
   }else{
     alert("違います");
   }
+  loadProblem();
 }
 
 /* 追加 */

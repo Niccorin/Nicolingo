@@ -175,3 +175,11 @@ function createSet(){
   updateSetList();
   updateList();
 }
+
+#version{
+  position:fixed;
+  right:15px;
+  bottom:10px;
+  color:#888;
+  font-size:14px;
+}

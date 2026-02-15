@@ -1,3 +1,5 @@
+let bgmStarted=false;
+
 let sets = JSON.parse(localStorage.getItem("sets")) || {
   "デフォルト":[
     {meaning:"私はサッカーをします", blocks:["I","play","soccer"], answer:"I play soccer"}
@@ -121,9 +123,13 @@ function updateList(){
 /* BGM */
 let playing=false;
 function toggleBGM(){
-  let bgm=document.getElementById("bgm");
-  if(!playing){bgm.play();}else{bgm.pause();}
-  playing=!playing;
+  const bgm=document.getElementById("bgm");
+
+  if(bgm.paused){
+    bgm.play();
+  }else{
+    bgm.pause();
+  }
 }
 function updateSetList(){
   const ul=document.getElementById("setList");
@@ -183,3 +189,21 @@ function createSet(){
   color:#888;
   font-size:14px;
 }
+function startBGM(){
+  if(bgmStarted) return;
+  const bgm=document.getElementById("bgm");
+
+  bgm.volume=0.5;
+
+  bgm.play().then(()=>{
+    bgmStarted=true;
+  }).catch(()=>{
+    // 自動再生ブロック対策：最初のクリック待ち
+    document.body.addEventListener("click",()=>{
+      bgm.play();
+      bgmStarted=true;
+    },{once:true});
+  });
+  
+}
+window.addEventListener("load",startBGM);

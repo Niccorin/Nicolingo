@@ -12,14 +12,13 @@ body{
 }
 
 .screen{margin-top:40px;}
-
 .hidden{display:none;}
 
 .logo{
-  width:520px;
-  max-width:95%;
+  width:420px;
+  max-width:90%;
+  margin-bottom:30px;
   cursor:pointer;
-  margin-bottom:40px;
 }
 
 .menu button{
@@ -41,6 +40,14 @@ body{
   border:2px dashed #aaa;
   margin:20px;
   padding:10px;
+}
+
+#version{
+  position:fixed;
+  right:15px;
+  bottom:10px;
+  color:#888;
+  font-size:14px;
 }
 
 li{

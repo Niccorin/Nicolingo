@@ -8,59 +8,58 @@
 </head>
 
 <body>
-
 <div class="container">
 
-<!-- スタート画面 -->
-<div id="version">v0.0.3</div>
+<!-- スタート -->
+<div id="version">v0.1.0</div>
   <div id="startScreen" class="screen">
   <img src="logo.png" class="logo" onclick="startGame()">
+
   <div class="menu">
     <button onclick="startGame()">▶ スタート</button>
     <button onclick="openSettings()">⚙ 設定</button>
     <button onclick="toggleBGM()">🎵 BGM</button>
   </div>
+
+  <div id="version">v1.0.0</div>
 </div>
 
-<!-- ゲーム画面 -->
+<!-- ゲーム -->
 <div id="gameScreen" class="screen hidden">
   <h2 id="meaning"></h2>
 
   <div id="answerArea" class="answer"></div>
-
   <div id="blockArea" class="blocks"></div>
 
   <button onclick="checkAnswer()">答え合わせ</button>
   <button onclick="backToStart()">終了</button>
 </div>
 
-<!-- 設定画面 -->
+<!-- 設定 -->
 <div id="settingsScreen" class="screen hidden">
-  <h2>問題集</h2>
 
+<h2>問題集</h2>
 <input id="setName" placeholder="新しい問題集名">
 <button onclick="createSet()">作成</button>
-
 <ul id="setList"></ul>
 
 <hr>
 
-  <h2>問題管理</h2>
+<h2>問題管理</h2>
+<input id="newMeaning" placeholder="意味">
+<input id="newBlocks" placeholder="単語 (例:I,play,soccer)">
+<input id="newAnswer" placeholder="答え (例:I play soccer)">
+<button onclick="addProblem()">追加</button>
 
-  <input id="newMeaning" placeholder="意味">
-  <input id="newBlocks" placeholder="単語 (例: I,play,soccer)">
-  <input id="newAnswer" placeholder="答え (例: I play soccer)">
-  <button onclick="addProblem()">追加</button>
+<h3>問題一覧</h3>
+<ul id="problemList"></ul>
 
-  <h3>問題一覧</h3>
-  <ul id="problemList"></ul>
-
-  <button onclick="backToStart()">戻る</button>
+<button onclick="backToStart()">戻る</button>
 </div>
 
 </div>
 
-<audio id="bgm" loop preload="auto">
+<audio id="bgm" loop>
   <source src="Morning_2.mp3" type="audio/mpeg">
 </audio>
 

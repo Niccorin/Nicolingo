@@ -29,6 +29,7 @@ function startGame(){
 
 function openSettings(){
   show("settingsScreen");
+  updateSetList();
   updateList();
 }
 
@@ -123,4 +124,54 @@ function toggleBGM(){
   let bgm=document.getElementById("bgm");
   if(!playing){bgm.play();}else{bgm.pause();}
   playing=!playing;
+}
+function updateSetList(){
+  const ul=document.getElementById("setList");
+  ul.innerHTML="";
+  Object.keys(sets).forEach(name=>{
+    const li=document.createElement("li");
+
+    const select=document.createElement("button");
+    select.textContent=name;
+    select.onclick=()=>{
+      currentSet=name;
+      problems=sets[name];
+      updateList();
+      alert("問題集を切り替えました");
+    };
+
+    const del=document.createElement("button");
+    del.textContent="削除";
+    del.onclick=()=>{
+      if(confirm("削除しますか？")){
+        delete sets[name];
+        localStorage.setItem("sets", JSON.stringify(sets));
+        currentSet=Object.keys(sets)[0];
+        problems=sets[currentSet];
+        updateSetList();
+        updateList();
+      }
+    };
+
+    li.appendChild(select);
+    li.appendChild(del);
+    ul.appendChild(li);
+  });
+}
+
+function createSet(){
+  const name=document.getElementById("setName").value.trim();
+  if(!name) return;
+
+  if(sets[name]){
+    alert("既に存在します");
+    return;
+  }
+
+  sets[name]=[];
+  currentSet=name;
+  problems=sets[name];
+  save();
+  updateSetList();
+  updateList();
 }

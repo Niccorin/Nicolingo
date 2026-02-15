@@ -16,9 +16,10 @@ body{
 .hidden{display:none;}
 
 .logo{
-  width:560px;
+  width:520px;
+  max-width:95%;
   cursor:pointer;
-  margin-bottom:20px;
+  margin-bottom:40px;
 }
 
 .menu button{

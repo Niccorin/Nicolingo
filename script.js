@@ -1,5 +1,4 @@
-let bgmStarted=false;
-
+/* 問題集 */
 let sets = JSON.parse(localStorage.getItem("sets")) || {
   "デフォルト":[
     {meaning:"私はサッカーをします", blocks:["I","play","soccer"], answer:"I play soccer"}
@@ -9,16 +8,15 @@ let sets = JSON.parse(localStorage.getItem("sets")) || {
 let currentSet="デフォルト";
 let problems=sets[currentSet];
 
-
-let current = 0;
-let answer = [];
+let current=0;
+let answer=[];
 
 function save(){
   sets[currentSet]=problems;
   localStorage.setItem("sets", JSON.stringify(sets));
 }
 
-/* 画面切替 */
+/* 画面 */
 function show(id){
   document.querySelectorAll(".screen").forEach(s=>s.classList.add("hidden"));
   document.getElementById(id).classList.remove("hidden");
@@ -76,7 +74,6 @@ function loadProblem(){
   });
 }
 
-
 /* 判定 */
 function checkAnswer(){
   if(answer.join(" ")===problems[current].answer){
@@ -101,7 +98,7 @@ function addProblem(){
   updateList();
 }
 
-/* 一覧 */
+/* 問題一覧 */
 function updateList(){
   let ul=document.getElementById("problemList");
   ul.innerHTML="";
@@ -120,17 +117,7 @@ function updateList(){
   });
 }
 
-/* BGM */
-let playing=false;
-function toggleBGM(){
-  const bgm=document.getElementById("bgm");
-
-  if(bgm.paused){
-    bgm.play();
-  }else{
-    bgm.pause();
-  }
-}
+/* 問題集一覧 */
 function updateSetList(){
   const ul=document.getElementById("setList");
   ul.innerHTML="";
@@ -182,28 +169,10 @@ function createSet(){
   updateList();
 }
 
-#version{
-  position:fixed;
-  right:15px;
-  bottom:10px;
-  color:#888;
-  font-size:14px;
+/* BGM */
+let playing=false;
+function toggleBGM(){
+  let bgm=document.getElementById("bgm");
+  if(!playing){bgm.play();}else{bgm.pause();}
+  playing=!playing;
 }
-function startBGM(){
-  if(bgmStarted) return;
-  const bgm=document.getElementById("bgm");
-
-  bgm.volume=0.5;
-
-  bgm.play().then(()=>{
-    bgmStarted=true;
-  }).catch(()=>{
-    // 自動再生ブロック対策：最初のクリック待ち
-    document.body.addEventListener("click",()=>{
-      bgm.play();
-      bgmStarted=true;
-    },{once:true});
-  });
-  
-}
-window.addEventListener("load",startBGM);

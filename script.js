@@ -1,12 +1,19 @@
-let problems = JSON.parse(localStorage.getItem("problems")) || [
-  {meaning:"私はサッカーをします", blocks:["I","play","soccer"], answer:"I play soccer"}
-];
+let sets = JSON.parse(localStorage.getItem("sets")) || {
+  "デフォルト":[
+    {meaning:"私はサッカーをします", blocks:["I","play","soccer"], answer:"I play soccer"}
+  ]
+};
+
+let currentSet="デフォルト";
+let problems=sets[currentSet];
+
 
 let current = 0;
 let answer = [];
 
 function save(){
-  localStorage.setItem("problems", JSON.stringify(problems));
+  sets[currentSet]=problems;
+  localStorage.setItem("sets", JSON.stringify(sets));
 }
 
 /* 画面切替 */

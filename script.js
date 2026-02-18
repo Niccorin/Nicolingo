@@ -176,11 +176,3 @@ function toggleBGM(){
   if(!playing){bgm.play();}else{bgm.pause();}
   playing=!playing;
 }
-
-function showCredits(){
-  show("creditScreen");
-}
-
-function showFeedback(){
-  show("feedbackScreen");
-}

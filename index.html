@@ -11,7 +11,7 @@
 <div class="container">
 
 <!-- スタート -->
-  <div id="startScreen" class="screen">
+<div id="startScreen" class="screen">
   <img src="logo.png" class="logo" onclick="startGame()">
 
   <div class="menu">
@@ -20,7 +20,7 @@
     <button onclick="toggleBGM()">BGM</button>
   </div>
 
-  <div id="version">v0.1.0</div>
+  <div id="version">v1.0.0</div>
 </div>
 
 <!-- ゲーム -->
@@ -35,8 +35,8 @@
 </div>
 
 <!-- 設定 -->
-  <hr>
-  
+<div id="settingsScreen" class="screen hidden">
+
 <h2>問題集</h2>
 <input id="setName" placeholder="新しい問題集名">
 <button onclick="createSet()">作成</button>
@@ -59,7 +59,7 @@
 </div>
 
 <audio id="bgm" loop>
-  <source src="Morning_2.mp3" type="audio/mpeg">
+  <source src="bgm.mp3" type="audio/mpeg">
 </audio>
 
 <script src="script.js"></script>

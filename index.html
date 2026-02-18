@@ -35,7 +35,37 @@
 </div>
 
 <!-- 設定 -->
+  <hr>
+
+<h2>その他</h2>
+<button onclick="showCredits()">クレジット</button>
+<button onclick="showFeedback()">意見・要望</button>
+  
 <div id="settingsScreen" class="screen hidden">
+  
+<!-- クレジット画面 -->
+<div id="creditScreen" class="screen hidden">
+  <h2>クレジット</h2>
+
+  <p><strong>アプリ名:</strong> NICOLINGO</p>
+  <p><strong>開発:</strong> Haruto</p>
+  <p><strong>Version:</strong> v1.0.0</p>
+  <p><strong>BGM:</strong> Morning_2</p>
+
+  <button onclick="openSettings()">戻る</button>
+</div>
+<!-- フィードバック画面 -->
+<div id="feedbackScreen" class="screen hidden">
+  <h2>意見・要望</h2>
+
+  <textarea id="feedbackText" 
+    placeholder="ご意見・ご要望を書いてください"
+    style="width:90%;height:120px;"></textarea>
+
+  <br><br>
+  <button onclick="sendFeedback()">送信</button>
+  <button onclick="openSettings()">戻る</button>
+</div>
 
 <h2>問題集</h2>
 <input id="setName" placeholder="新しい問題集名">

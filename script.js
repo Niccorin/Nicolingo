@@ -178,8 +178,9 @@ function toggleBGM(){
 }
 
 function Log(){
-"ログ"
-"2/21 やっとリリース"
-"クレジット"
-  "made by 256studio supported by codex"
+  const title = prompt("ログ");
+  const body = prompt("2/21 リリース");
+  
+  const title = prompt("クレジット");
+  const body = prompt("制作:256studio　協力:Codex,dova-syandrome");
 }

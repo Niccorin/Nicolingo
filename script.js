@@ -178,4 +178,4 @@ function toggleBGM(){
 }
 
 function Log(){
-  -二月二十一日　リリース！-
+alert("2/21 リリース");

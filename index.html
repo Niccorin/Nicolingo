@@ -6,61 +6,26 @@
 <title>NICOLINGO</title>
 <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-<div class="container">
 
-<!-- スタート -->
-<div id="startScreen" class="screen">
-  <img src="logo.png" class="logo" onclick="startGame()">
-
-  <div class="menu">
-    <button onclick="startGame()">スタート</button>
-    <button onclick="openSettings()">設定</button>
-    <button onclick="toggleBGM()">BGM</button>
-  </div>
-
-  <div id="version">v0.1.2</div>
+<!-- タイトル画面 -->
+<div id="titleScreen" class="screen">
+  <h1>NICOLINGO</h1>
+  <button onclick="startGame()">スタート</button>
 </div>
 
-<!-- ゲーム -->
-<div id="gameScreen" class="screen hidden">
-  <h2 id="meaning"></h2>
+<!-- ゲーム画面 -->
+<div id="gameScreen" class="screen" style="display:none">
 
-  <div id="answerArea" class="answer"></div>
-  <div id="blockArea" class="blocks"></div>
+  <h2 id="question"></h2>
 
-  <button onclick="checkAnswer()">答え合わせ</button>
-  <button onclick="backToStart()">終了</button>
-</div>
+  <div id="answerArea"></div>
 
-<!-- 設定 -->
-<div id="settingsScreen" class="screen hidden">
+  <div id="choices"></div>
 
-<h2>問題集</h2>
-<input id="setName" placeholder="新しい問題集名">
-<button onclick="createSet()">作成</button>
-<ul id="setList"></ul>
-
-<hr>
-
-<h2>問題管理</h2>
-<input id="newMeaning" placeholder="意味">
-<input id="newBlocks" placeholder="単語 (例:I,play,soccer)">
-<input id="newAnswer" placeholder="答え (例:I play soccer)">
-<button onclick="addProblem()">追加</button>
-
-<h3>問題一覧</h3>
-<ul id="problemList"></ul>
-
-<button onclick="backToStart()">戻る</button>
-</div>
+  <button onclick="checkAnswer()">決定</button>
 
 </div>
-
-<audio id="bgm" loop>
-  <source src="青空空港.mp3" type="audio/mpeg">
-</audio>
 
 <script src="script.js"></script>
 </body>

@@ -179,3 +179,4 @@ function toggleBGM(){
 
 function Log(){
 alert("2/21 リリース");
+}

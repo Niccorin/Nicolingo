@@ -178,9 +178,10 @@ function toggleBGM(){
 }
 
 function Log(){
-  const title = prompt("ログ");
-  const body = prompt("2/21 リリース");
-  
-  const title = prompt("クレジット");
-  const body = prompt("制作:256studio　協力:Codex,dova-syandrome");
+    document.getElementById("logText").textContent =
+        "アップデート履歴　2/21リリース";
+
+    // 画面切り替え
+    document.getElementById("startScreen").style.display = "none";
+    document.getElementById("logScreen").style.display = "block";
 }

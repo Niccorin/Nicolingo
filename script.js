@@ -1,9 +1,9 @@
  (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
 diff --git a/script.js b/script.js
-index 887e56b4fab4f34af1c2ee7a0ef2743656870bec..0524abf241984ad8f9a380594781b65d628464a6 100644
+index 887e56b4fab4f34af1c2ee7a0ef2743656870bec..f0d1c6bbc6125630b0c31acd5c5c134b83214225 100644
 --- a/script.js
 +++ b/script.js
-@@ -1,205 +1,235 @@
+@@ -1,205 +1,238 @@
  /* 問題集 */
  let sets = JSON.parse(localStorage.getItem("sets")) || {
    "デフォルト":[
@@ -30,7 +30,10 @@ index 887e56b4fab4f34af1c2ee7a0ef2743656870bec..0524abf241984ad8f9a380594781b65d
 +  if(!sound) return;
 +
 +  sound.currentTime = 0;
-+  sound.play().catch(()=>{});
++  const playPromise = sound.play();
++  if(playPromise && typeof playPromise.catch === "function"){
++    playPromise.catch(()=>{});
++  }
 +}
 +
  /* 保存 */

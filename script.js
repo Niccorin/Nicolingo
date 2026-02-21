@@ -178,10 +178,5 @@ function toggleBGM(){
 }
 
 function Log(){
-    document.getElementById("logText").textContent =
-        "アップデート履歴　2/21リリース";
-
-    // 画面切り替え
-    document.getElementById("startScreen").style.display = "none";
-    document.getElementById("logScreen").style.display = "block";
+  textContent ="アップデート履歴　2/21リリース";
 }

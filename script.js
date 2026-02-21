@@ -178,5 +178,5 @@ function toggleBGM(){
 }
 
 function Log(){
-alert("アップデート履歴　2/21リリース")
+alert("アップデート履歴　2/21リリース");
 }

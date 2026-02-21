@@ -11,15 +11,19 @@ let problems=sets[currentSet];
 let current=0;
 let answer=[];
 
+/* 保存 */
 function save(){
   sets[currentSet]=problems;
   localStorage.setItem("sets", JSON.stringify(sets));
 }
 
-/* 画面 */
+/* 画面切替 */
 function show(id){
-  document.querySelectorAll(".screen").forEach(s=>s.classList.add("hidden"));
-  document.getElementById(id).classList.remove("hidden");
+  document.querySelectorAll(".screen")
+    .forEach(s=>s.classList.add("hidden"));
+
+  document.getElementById(id)
+    .classList.remove("hidden");
 }
 
 function startGame(){
@@ -45,33 +49,56 @@ function loadProblem(){
   document.getElementById("meaning").textContent=p.meaning;
 
   const answerArea=document.getElementById("answerArea");
-  answerArea.innerHTML="";
-
   const blockArea=document.getElementById("blockArea");
+
+  answerArea.innerHTML="";
   blockArea.innerHTML="";
+
+  let usedFlags = new Array(p.blocks.length).fill(false);
 
   function renderAnswer(){
     answerArea.innerHTML="";
-    answer.forEach((word,i)=>{
-      let btn=document.createElement("button");
+
+    answer.forEach((word,index)=>{
+      const btn=document.createElement("button");
       btn.textContent=word;
+
       btn.onclick=()=>{
-        answer.splice(i,1);
+        answer.splice(index,1);
+        usedFlags[p.blocks.indexOf(word)]=false;
         renderAnswer();
+        renderBlocks();
       };
+
       answerArea.appendChild(btn);
     });
   }
 
-  p.blocks.sort(()=>Math.random()-0.5).forEach(word=>{
-    let b=document.createElement("button");
-    b.textContent=word;
-    b.onclick=()=>{
-      answer.push(word);
-      renderAnswer();
-    };
-    blockArea.appendChild(b);
-  });
+  function renderBlocks(){
+    blockArea.innerHTML="";
+
+    p.blocks.forEach((word,i)=>{
+      const b=document.createElement("button");
+      b.textContent=word;
+
+      if(usedFlags[i]){
+        b.disabled=true;
+      }
+
+      b.onclick=()=>{
+        if(usedFlags[i]) return;
+
+        answer.push(word);
+        usedFlags[i]=true;
+        renderAnswer();
+        renderBlocks();
+      };
+
+      blockArea.appendChild(b);
+    });
+  }
+
+  renderBlocks();
 }
 
 /* 判定 */
@@ -85,7 +112,7 @@ function checkAnswer(){
   loadProblem();
 }
 
-/* 追加 */
+/* 問題追加 */
 function addProblem(){
   let m=document.getElementById("newMeaning").value;
   let b=document.getElementById("newBlocks").value.split(",");

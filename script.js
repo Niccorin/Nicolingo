@@ -178,5 +178,5 @@ function toggleBGM(){
 }
 
 function Log(){
-alert("ログ:2/21リリース");
+  alert("ログ:2/21 リリース");
 }

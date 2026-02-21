@@ -178,5 +178,8 @@ function toggleBGM(){
 }
 
 function Log(){
-alert("2/21 リリース");
+"ログ"
+"2/21 やっとリリース"
+"クレジット"
+  "made by 256studio supported by codex"
 }

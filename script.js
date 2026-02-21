@@ -176,3 +176,8 @@ function toggleBGM(){
   if(!playing){bgm.play();}else{bgm.pause();}
   playing=!playing;
 }
+
+function Log(){
+  2026/02/21　リリース！
+ーこのアプリについてー
+  このアプリは、基礎英語やKeypoitに対策できるよう開発されたDu◯lingo風アプリです。BGMボタンを押すとBGMが流れます（^^）問題の追加や問題集の作成もできます。

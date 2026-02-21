@@ -1,127 +1,90 @@
-let problems = JSON.parse(localStorage.getItem("problems")) || [];
-let currentProblem = null;
-let selectedWords = [];
+let problems = [
+  { jp:"彼女はテニスをします", en:"She plays tennis" },
+  { jp:"私は学生です", en:"I am a student" }
+];
 
-/* =========================
-   配列シャッフル関数
-   ========================= */
-function shuffle(array) {
-  const newArray = [...array];
-  for (let i = newArray.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+let currentProblem;
+let selected = [];
+let buttons = [];
+
+/* ---------- シャッフル ---------- */
+function shuffle(array){
+  const arr=[...array];
+  for(let i=arr.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
   }
-  return newArray;
+  return arr;
 }
 
-/* =========================
-   問題スタート
-   ========================= */
-function startGame() {
-  if (problems.length === 0) {
-    alert("問題がありません！");
-    return;
-  }
-
-  document.getElementById("titleScreen").style.display = "none";
-  document.getElementById("gameScreen").style.display = "block";
-
+/* ---------- スタート ---------- */
+function startGame(){
+  document.getElementById("titleScreen").style.display="none";
+  document.getElementById("gameScreen").style.display="block";
   nextProblem();
 }
 
-/* =========================
-   次の問題
-   ========================= */
-function nextProblem() {
-  selectedWords = [];
+/* ---------- 次の問題 ---------- */
+function nextProblem(){
 
-  currentProblem = problems[Math.floor(Math.random() * problems.length)];
+  selected=[];
+  buttons=[];
 
-  document.getElementById("question").textContent = currentProblem.jp;
-  document.getElementById("answerArea").innerHTML = "";
+  currentProblem=problems[Math.floor(Math.random()*problems.length)];
 
-  const choicesArea = document.getElementById("choices");
-  choicesArea.innerHTML = "";
+  document.getElementById("question").textContent=currentProblem.jp;
+  document.getElementById("answerArea").innerHTML="";
+  document.getElementById("choices").innerHTML="";
 
-  // ★ここでシャッフル！！
-  const shuffledWords = shuffle(currentProblem.words);
+  const words=shuffle(currentProblem.en.split(" "));
 
-  shuffledWords.forEach(word => {
-    const btn = document.createElement("button");
-    btn.textContent = word;
-    btn.className = "word";
+  words.forEach(word=>{
+    const btn=document.createElement("button");
+    btn.textContent=word;
+    btn.className="word";
 
-    btn.onclick = () => selectWord(word, btn);
+    btn.onclick=()=>{
+      btn.disabled=true;
+      selected.push(word);
+      buttons.push(btn);
+      renderAnswer();
+    };
 
-    choicesArea.appendChild(btn);
+    document.getElementById("choices").appendChild(btn);
   });
 }
 
-/* =========================
-   単語選択
-   ========================= */
-function selectWord(word, btn) {
-  selectedWords.push(word);
-  btn.disabled = true;
+/* ---------- 回答表示 ---------- */
+function renderAnswer(){
+  const area=document.getElementById("answerArea");
+  area.innerHTML="";
 
-  const answerArea = document.getElementById("answerArea");
+  selected.forEach((word,index)=>{
+    const w=document.createElement("button");
+    w.textContent=word;
+    w.className="answerWord";
 
-  const wordBtn = document.createElement("button");
-  wordBtn.textContent = word;
-  wordBtn.className = "answerWord";
+    // ←タップで戻す
+    w.onclick=()=>{
+      buttons[index].disabled=false;
+      selected.splice(index,1);
+      buttons.splice(index,1);
+      renderAnswer();
+    };
 
-  // ★タップで戻せる
-  wordBtn.onclick = () => {
-    selectedWords = selectedWords.filter((w, i) => i !== selectedWords.indexOf(word));
-    btn.disabled = false;
-    wordBtn.remove();
-  };
-
-  answerArea.appendChild(wordBtn);
+    area.appendChild(w);
+  });
 }
 
-/* =========================
-   判定
-   ========================= */
-function checkAnswer() {
-  const answer = selectedWords.join(" ");
+/* ---------- 判定 ---------- */
+function checkAnswer(){
+  const ans=selected.join(" ");
 
-  if (answer === currentProblem.en) {
+  if(ans===currentProblem.en){
     alert("正解！");
-  } else {
-    alert("不正解！ 正解: " + currentProblem.en);
+  }else{
+    alert("不正解\n正解: "+currentProblem.en);
   }
 
   nextProblem();
-}
-
-/* =========================
-   問題追加
-   ========================= */
-function addProblem() {
-  const jp = document.getElementById("jpInput").value;
-  const en = document.getElementById("enInput").value;
-
-  if (!jp || !en) {
-    alert("入力してください");
-    return;
-  }
-
-  const words = en.split(" ");
-
-  problems.push({ jp, en, words });
-  localStorage.setItem("problems", JSON.stringify(problems));
-
-  alert("追加しました！");
-}
-
-/* =========================
-   初期データ（初回だけ）
-   ========================= */
-if (problems.length === 0) {
-  problems = [
-    { jp: "彼女はテニスをします", en: "She plays tennis", words: ["She", "plays", "tennis"] },
-    { jp: "私は学生です", en: "I am a student", words: ["I", "am", "a", "student"] }
-  ];
-  localStorage.setItem("problems", JSON.stringify(problems));
 }
